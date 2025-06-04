@@ -1,0 +1,104 @@
+{
+  "name": "UniversityResearcherProfiles",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "dev:prod": "vite --mode production",
+    "build:dev": "vite build --mode development",
+    "build:prod": "vite build --mode production",
+    "prepare": "husky install"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "echo \"git commit trigger husky pre-commit hook\" && lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "eslint --no-error-on-unmatched-pattern --fix"
+    ],
+    "*.vue": [
+      "prettier --write",
+      "eslint --no-error-on-unmatched-pattern --fix",
+      "stylelint --allow-empty-input --fix"
+    ],
+    "*.{html,sass,scss}": [
+      "prettier --write",
+      "stylelint --allow-empty-input --fix"
+    ],
+    "package.json": [
+      "prettier --write"
+    ],
+    "*.md": [
+      "prettier --write"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://172.17.12.153:10011/envy-web/pc.git"
+  },
+  "dependencies": {
+    "@babel/core": "^7.22.10",
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
+    "@fortawesome/free-brands-svg-icons": "^6.7.2",
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@fortawesome/vue-fontawesome": "^2.0.10",
+    "axios": "^1.4.0",
+    "dayjs": "^1.10.5",
+    "element-china-area-data": "^6.1.0",
+    "element-ui": "^2.15.13",
+    "lodash": "^4.17.21",
+    "lodash.debounce": "^4.0.8",
+    "nprogress": "^0.2.0",
+    "pinia": "^2.0.27",
+    "pinia-plugin-persistedstate": "^3.2.0",
+    "qrcode": "^1.5.3",
+    "sanitize.css": "^13.0.0",
+    "swiper": "^5.4.5",
+    "vue": "^2.7.14",
+    "vue-awesome-swiper": "^4.1.0",
+    "vue-i18n": "^8.28.2",
+    "vue-router": "^3.5.4",
+    "vue-seamless-scroll": "^1.1.23",
+    "vue-slick-carousel": "^1.0.6"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.19.1",
+    "@rushstack/eslint-patch": "^1.2.0",
+    "@vitejs/plugin-legacy": "^4.1.1",
+    "@vitejs/plugin-vue2": "^2.2.0",
+    "@vue/eslint-config-prettier": "^7.0.0",
+    "autoprefixer": "^9.8.8",
+    "consola": "^3.2.3",
+    "eslint": "^8.47.0",
+    "eslint-plugin-vue": "^9.15.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.3",
+    "postcss": "^8.4.28",
+    "postcss-html": "^1.5.0",
+    "postcss-pxtorem": "^6.0.0",
+    "prettier": "^2.7.1",
+    "sass": "^1.66.1",
+    "stylelint": "^14.15.0",
+    "stylelint-config-html": "^1.1.0",
+    "stylelint-config-prettier": "^9.0.4",
+    "stylelint-config-recess-order": "^3.1.0",
+    "stylelint-config-recommended-scss": "^8.0.0",
+    "stylelint-config-standard": "^29.0.0",
+    "stylelint-order": "^5.0.0",
+    "terser": "^5.19.2",
+    "vite": "^4.4.9",
+    "vite-plugin-style-import": "^2.0.0",
+    "vite-plugin-svg-icons": "^2.0.1"
+  },
+  "engines": {
+    "node": ">=14.19",
+    "npm": ">= 6.14.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
+}

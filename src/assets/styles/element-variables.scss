@@ -1,0 +1,71 @@
+/**
+* I think element-ui's default theme color is too light for long-term use.
+* So I modified the default color and you can modify it to your liking.
+**/
+
+/* theme color */
+// Brand Color
+$--color-primary: #af2125;
+
+/* Functional Color */
+$--color-danger: #cc3327;
+$--color-info: #dfe1e2;
+
+// Font Color
+$--color-text-primary: #1f6cbf;
+$--color-text-regular: #16151a;
+$--color-text-secondary: #9a9fb5;
+$--color-text-placeholder: #9a9fb5;
+
+// Border Color
+$--border-color-light: #e5e6ec;
+$--border-color-lighter: #eff2ff;
+$--border-color-base: #daddea;
+
+// Background
+$--background-color-base: #eff2ff;
+
+/* theme color end */
+
+// input
+$--input-height: 32px;
+
+// button
+$--button-font-weight: 400;
+$--button-padding-vertical: 8px;
+$--button-padding-horizontal: 14px;
+$--button-border-radius: 2px;
+$--button-mini-padding-vertical: 6px;
+$--button-mini-padding-horizontal: 6px;
+$--button-small-padding-vertical: 8px;
+$--button-small-padding-horizontal: 16px;
+$--button-medium-padding-vertical: 16px;
+$--button-medium-padding-horizontal: 30px;
+$--button-default-border-color: $--color-info;
+$--button-info-font-color: $--color-primary;
+$--button-info-border-color: $--color-primary;
+$--button-info-background-color: #fff;
+
+// table
+$--table-header-background-color: #eff2ff;
+$--table-border-color: rgba(#8590b3, 0.3);
+
+// pagination
+$--pagination-button-height: 32px;
+$--pagination-font-size: 14px;
+$--pagination-font-color: #1f6cbf;
+$--pagination-hover-color: #af2125;
+$--pagination-button-height: 32px;
+$--pagination-border-radius: 4px;
+$--pagination-background-color: #fff;
+$--pagination-button-disabled-background-color: #f4f7fc;
+$--pagination-button-color: #fff;
+
+// dialog
+$--dialog-padding-primary: 32px;
+
+// message-box
+$--msgbox-border-radius: 5px;
+$--msgbox-padding-primary: 20px;
+$--messagebox-content-font-size: 16px;
+$--messagebox-warning-color: $--color-primary;

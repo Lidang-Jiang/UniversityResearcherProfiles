@@ -1,0 +1,127 @@
+@import 'sanitize.css';
+@import 'sanitize.css/forms.css';
+@import 'sanitize.css/typography.css';
+@import './element-variables';
+@import './quill.core.css';
+
+:root {
+  --red: #cc3327;
+  --blue: #1f6cbf;
+  --dark-blue: #0f4a8a;
+  --color-black: #16151a;
+  --color-gray: #9a9fb5;
+  --bg-color: #f4f7fc;
+  --border-color: #daddea;
+
+  // 默认主题颜色
+  --theme-color: #af2125;
+  --subpage-bg: #f4f7fc;
+  --subpage-menu-bg-image: linear-gradient(180deg, #1f6cbf 0%, rgb(31 108 191 / 60%) 100%);
+  --subpage-menu-deco: no-repeat url('@/assets/images/deco_leftmenu.png') top left / 100%;
+  --friend-link-bg-color: #e5edf7;
+  --footer-bg-color: #062646;
+  --footer-record-bg-color: #0f4a8a;
+  --home-width: 1176px;
+}
+
+:root.red {
+  --theme-color: #cc3327;
+  --subpage-bg: rgb(204 51 39 / 12%) no-repeat url('@/assets/images/deco-flag.png') top left / 896px 463px;
+  --subpage-menu-bg-image: linear-gradient(180deg, #cc3327 0%, rgb(204 51 39 / 50%) 100%);
+  --subpage-menu-deco: no-repeat url('@/assets/images/deco_leftmenu_red.png') top left / 100%;
+  --friend-link-bg-color: #fcf5f4;
+  --footer-bg-color: #cc3327;
+  --footer-record-bg-color: #952017;
+}
+
+body {
+  height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, 'Segoe UI', Arial, Roboto, 'PingFang SC',
+    'Microsoft YaHei UI', 'Microsoft Yahei', sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--color-black);
+  transition: color 0.5s, background-color 0.5s;
+  text-rendering: optimizelegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a,
+a:link,
+a:visited,
+a:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--blue);
+  text-decoration: underline;
+}
+
+ul,
+ol {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+// 重写 =======================================
+// nprogress
+#nprogress .bar {
+  background: var(--blue);
+}
+
+.el-dialog {
+  border-radius: 12px;
+
+  &__title {
+    font-weight: 520;
+    color: #1d1f23;
+  }
+}
+// ======================================= end
+
+.flex-box {
+  display: flex;
+  align-items: center;
+}
+
+.fx-center {
+  display: flex;
+  align-items: center;
+}
+
+.fx-all-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fx-column {
+  flex-direction: column;
+}
+
+.fx-between {
+  justify-content: space-between;
+}
+
+.flex1 {
+  flex: 1;
+}
+
+// * {
+//   &::-webkit-scrollbar-track-piece {
+//     background: #fff;
+//   }
+
+//   &::-webkit-scrollbar {
+//     width: 10px;
+//   }
+
+//   &::-webkit-scrollbar-thumb {
+//     background: #a7aab3;
+//     border-radius: 20px;
+//   }
+// }

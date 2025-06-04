@@ -1,0 +1,40 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Vue",
+      "url": "http://localhost:8220", // 替换为你的项目地址
+      "webRoot": "${workspaceFolder}",
+      // "userDataDir": false,
+
+      "runtimeExecutable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe", // Chrome 可执行文件路径
+      "runtimeArgs": [
+        "--disable-web-security" // 禁用跨域安全限制
+        // "--user-data-dir=C:\\MyChromeDevUser" // 自定义用户数据目录
+      ],
+      // 新增调试过滤配置 ▼▼▼
+      "skipFiles": [
+        "${workspaceFolder}/node_modules/**", // 跳过所有 node_modules 代码
+        "${workspaceFolder}/.vite/**", // 跳过 Vite 缓存代码
+        "${webRoot}/node_modules/**", // 另一种路径写法
+        // 新增过滤 Vite 客户端代码 ▼
+        "${workspaceFolder}/@vite/**",
+        "**/node_modules/**" // 匹配 webpack:\node_modules 开头的路径
+      ],
+      "sourceMapPathOverrides": {
+        "/src/*": "${webRoot}/src/*" // 修改为 Vite 的路径映射规则
+      }
+    },
+
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "js",
+      "skipFiles": ["<node_internals>/**"], // 跳过 Node.js 内部模块
+      "program": "${file}", // 当前打开的 JS 文件
+      "console": "integratedTerminal" // 在集成终端中运行
+    }
+  ]
+}
