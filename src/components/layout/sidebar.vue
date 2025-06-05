@@ -58,6 +58,7 @@ import { getUserInfo } from '@/api/personal'
 import { previewPic } from '@/api/utils'
 import ProfileImage from '@/assets/images/profile.png'
 import { t, useLangStore } from '@/locales'
+import { getCachedAvatar, cacheAvatar, clearCache } from '@/utils/avatarCache'
 
 export default {
   name: 'AppSidebar',
@@ -134,12 +135,10 @@ export default {
     // 步骤6: 在mounted中而非created中处理图片加载
     this.preloadImage()
   },
+  // 修改组件销毁逻辑，不再需要手动清理URL
   beforeDestroy() {
-    // 释放临时创建的Blob URL，防止内存泄漏
-    if (this.blobUrl) {
-      URL.revokeObjectURL(this.blobUrl)
-      console.log('[资源清理] 已释放头像Blob URL')
-    }
+    // 释放资源逻辑由缓存服务统一管理，不再需要组件销毁时手动处理
+    console.log('[资源清理] 组件销毁，资源由缓存服务管理')
   },
   methods: {
     async fetchUserInfo(langCode = 'zh-CN') {
@@ -171,27 +170,50 @@ export default {
       }
     },
     /**
-     * 加载用户头像
+     * 加载用户头像 - 优化版，支持缓存策略
      * @param {string} avatarName - 头像文件名
      */
     async loadUserAvatar(avatarName) {
+      // 验证参数
+      if (!avatarName) {
+        console.warn('[头像加载] 未提供有效的头像名称')
+        this.handleImageError()
+        return
+      }
+
       try {
-        // 步骤1：调用API获取Blob数据
-        const blobData = await previewPic(avatarName)
+        // 步骤1：检查缓存中是否有此头像
+        const cachedUrl = getCachedAvatar(avatarName)
 
-        // 步骤2：检查返回的是否为有效的Blob对象
-        if (blobData instanceof Blob) {
-          // 步骤3：将Blob转换为临时URL
-          const imageUrl = URL.createObjectURL(blobData)
-
-          // 步骤4：更新头像URL
-          this.avatarUrl = imageUrl
+        if (cachedUrl) {
+          // 缓存命中，直接使用缓存的URL
+          console.log('[头像加载] 使用缓存头像')
+          this.avatarUrl = cachedUrl
           this.imageLoaded = true
 
-          // 记录当前URL用于后续清理
-          this.blobUrl = imageUrl
+          // 记录当前URL用于后续清理（不需要手动清理，缓存服务会处理）
+          this.blobUrl = null // 不再需要组件自行管理URL
+          return
+        }
 
-          console.log('[头像加载] 成功加载用户头像')
+        // 步骤2：缓存未命中，调用API获取Blob数据
+        console.log('[头像加载] 缓存未命中，从API获取头像')
+        const blobData = await previewPic(avatarName)
+
+        // 步骤3：检查返回的是否为有效的Blob对象
+        if (blobData instanceof Blob) {
+          // 步骤4：缓存头像并获取URL
+          const imageUrl = cacheAvatar(avatarName, blobData)
+
+          if (imageUrl) {
+            // 步骤5：更新头像URL
+            this.avatarUrl = imageUrl
+            this.imageLoaded = true
+            console.log('[头像加载] 成功加载用户头像并缓存')
+          } else {
+            console.error('[头像加载] 创建缓存URL失败')
+            this.handleImageError()
+          }
         } else {
           console.error('[头像加载] 返回的数据不是有效的Blob对象')
           this.handleImageError()
