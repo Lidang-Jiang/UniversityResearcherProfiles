@@ -65,6 +65,8 @@ export default {
     return {
       // 保留作者信息
       avatarUrl: ProfileImage,
+      fallbackAvatar: ProfileImage,
+      avatarLoading: false, // 专门用于头像加载状态
       // 步骤4: 新增图片加载状态管理
       imageLoaded: false,
 
@@ -124,11 +126,9 @@ export default {
       this.$forceUpdate() // 强制重新渲染
     },
   },
-
-  created() {
-    // 保留路由相关逻辑
+  async created() {
     this.updateSidebarByRoute(this.$route)
-    this.fetchUserInfo(this.currentLang)
+    await this.fetchUserInfo(this.currentLang)
   },
   mounted() {
     // 步骤6: 在mounted中而非created中处理图片加载
@@ -144,6 +144,7 @@ export default {
   methods: {
     async fetchUserInfo(langCode = 'zh-CN') {
       this.isLoading = true
+      this.avatarLoading = true // 标记头像开始加载
 
       try {
         const response = await getUserInfo({ languageCode: langCode })
@@ -151,9 +152,11 @@ export default {
         if (response.errorCode === 0 && response.data) {
           this.userInfo = response.data
 
-          // 处理头像数据
-          if (response.data.avatarName) {
-            this.loadUserAvatar(response.data.avatarName)
+          // 显式检查头像名称是否存在
+          if (response.data.avatarName && response.data.avatarName.trim() !== '') {
+            await this.loadUserAvatar(response.data.avatarName)
+          } else {
+            console.warn('[用户信息] 用户没有设置头像')
           }
 
           console.log('[用户信息] 成功获取用户数据', this.userInfo)
@@ -164,6 +167,7 @@ export default {
         console.error('[用户信息] 请求异常:', error)
       } finally {
         this.isLoading = false
+        this.avatarLoading = false // 头像加载结束
       }
     },
     /**
