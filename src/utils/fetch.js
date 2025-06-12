@@ -48,7 +48,8 @@ const paddingRequest = new Set()
 const ev = new EventEmitter()
 
 const instance = axios.create({
-  baseURL: import.meta.env.VITE_BASE_API + '/api', // 步骤1: 直接在baseURL中添加/api前缀
+  // 使用相对路径时的优雅处理
+  baseURL: (import.meta.env.VITE_BASE_API || '') + '/api',
   timeout: 6000,
   headers: { channel: 1 },
   showError: true,
